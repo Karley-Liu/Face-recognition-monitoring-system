@@ -1,0 +1,53 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+{% load i18n static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+{% block extrastyle %}
+    <link rel="stylesheet" type="text/css" href="{% static "admin/css/record.css" %}">
+{% endblock %}
+</head>
+<body>
+{% block content %}
+    <div class="recordBox">
+        <div class="location">
+            <button class="el-button el-button--primary" id="startRecord">
+                开始监控
+            </button>
+            <span>按1退出监控,按s截图获取人脸</span>
+        </div>
+
+{#        {% if frame %}#}
+{#            {{ frame }}#}
+{#        {% else %}#}
+{#            <h1 class="location">查看监控区域</h1>#}
+{#        {% endif %}#}
+    </div>
+</body>
+    <script src="{% static 'admin/js/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'admin/js/vendor/jquery/jquery-3.4.1.min.js' %}"></script>
+<script>
+    $(document).ready(function(){
+        $('#startRecord').click(function(){
+            record();
+        })
+    })
+    function record(){
+        $.ajax({
+            type:'GET',
+            url:'/admin/record/start',
+            async:false,
+            success:function(res){
+                alert("请求成功")
+            },
+            error:function(res){
+{#                alert('请求失败');#}
+            }
+        })
+    }
+</script>
+{% endblock %}
+</html>
